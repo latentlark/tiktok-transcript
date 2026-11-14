@@ -1,0 +1,10 @@
+storage/
+apify_storage/
+.env
+.env.*
+__pycache__/
+*.pyc
+node_modules/
+.venv/
+*.pem
+*.key

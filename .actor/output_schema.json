@@ -1,0 +1,17 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "TikTok transcripts output",
+  "description": "One dataset item per video (transcript, segments, SRT, metadata) or a free status row, plus a run summary.",
+  "properties": {
+    "overview": {
+      "type": "string",
+      "title": "Transcripts",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Run summary",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"
+    }
+  }
+}

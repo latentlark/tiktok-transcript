@@ -1,0 +1,128 @@
+{
+  "title": "TikTok Transcript Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "videoUrls": {
+      "title": "TikTok video URLs",
+      "type": "array",
+      "description": "One link per line: https://www.tiktok.com/@user/video/123…, vm.tiktok.com / vt.tiktok.com short links, or bare video IDs. Duplicates are removed.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.tiktok.com/@careersbychris/video/7696221120462114062",
+        "https://www.tiktok.com/@g1/video/7701696635159547154"
+      ]
+    },
+    "profiles": {
+      "title": "Creators (handles or profile URLs)",
+      "type": "array",
+      "description": "e.g. @penniestopounds or https://www.tiktok.com/@penniestopounds. Gets each creator's most recent videos (TikTok's public embed shows about the latest 10).",
+      "editor": "stringList",
+      "prefill": [
+        "@penniestopounds"
+      ]
+    },
+    "maxVideosPerProfile": {
+      "title": "Max videos per creator",
+      "type": "integer",
+      "description": "How many recent videos to transcribe per creator. TikTok's public embed exposes roughly the latest 10, so values above ~10 rarely add more.",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 30,
+      "prefill": 3
+    },
+    "captionLanguage": {
+      "title": "Caption language",
+      "type": "string",
+      "description": "Leave empty (recommended) to get the original spoken-language transcript. Enter a language code such as 'en' or 'eng-US' to prefer TikTok's machine-translated caption track when it exists; otherwise the original is returned.",
+      "editor": "textfield"
+    },
+    "includeSegments": {
+      "title": "Include timed segments",
+      "type": "boolean",
+      "default": true,
+      "description": "Add a segments array: [{start, end, text}] in seconds."
+    },
+    "includeSrt": {
+      "title": "Include SRT",
+      "type": "boolean",
+      "default": true,
+      "description": "Add an SRT subtitle string (ready for video editors and YouTube)."
+    },
+    "includeVtt": {
+      "title": "Include WebVTT",
+      "type": "boolean",
+      "default": false,
+      "description": "Add a WebVTT subtitle string."
+    },
+    "whisperFallback": {
+      "title": "Whisper fallback for videos without captions",
+      "type": "boolean",
+      "description": "Off by default. When on, videos with no TikTok captions are downloaded and transcribed with Whisper (base model is built in). Charged as the higher-priced whisper-transcript event only when it returns speech. Slower than native captions; default 512 MB is fine for base, use 1 GB for small.",
+      "default": false,
+      "sectionCaption": "Whisper fallback (optional)"
+    },
+    "whisperModel": {
+      "title": "Whisper model",
+      "type": "string",
+      "enum": [
+        "tiny",
+        "base",
+        "small"
+      ],
+      "default": "base",
+      "description": "base (default, built in, fast) is good for clear speech. small is more accurate but slower and downloads at run start. tiny is fastest. Use 1 GB memory for small."
+    },
+    "maxWhisperVideos": {
+      "title": "Max videos to Whisper",
+      "type": "integer",
+      "default": 20,
+      "minimum": 0,
+      "maximum": 500,
+      "description": "Safety cap: at most this many Whisper transcriptions per run."
+    },
+    "whisperMaxDurationSecs": {
+      "title": "Max video length for Whisper (s)",
+      "type": "integer",
+      "default": 300,
+      "minimum": 10,
+      "maximum": 1800,
+      "description": "Skip Whisper for videos longer than this (seconds)."
+    },
+    "proxyMode": {
+      "title": "Network mode",
+      "type": "string",
+      "enum": [
+        "auto",
+        "none",
+        "datacenter"
+      ],
+      "enumTitles": [
+        "Auto: direct first, proxy on retry (recommended)",
+        "Direct only",
+        "Proxy only"
+      ],
+      "default": "auto",
+      "description": "Auto (recommended): direct request first, then retries via Apify Proxy with a fresh session if TikTok challenges or rate-limits. Residential proxy is not needed.",
+      "sectionCaption": "Network"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "editor": "proxy",
+      "description": "Proxy used for retries. Apify datacenter proxy (default) is enough.",
+      "default": {
+        "useApifyProxy": true
+      }
+    },
+    "maxConcurrency": {
+      "title": "Max concurrency",
+      "type": "integer",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 16,
+      "description": "Videos processed in parallel (1–16)."
+    }
+  },
+  "description": "Paste TikTok video links and/or creator handles. You get the transcript (text, timed segments, SRT) in the video's original language, plus video and author metadata. Videos without captions are free; turn on Whisper to transcribe them too."
+}

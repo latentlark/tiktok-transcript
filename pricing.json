@@ -1,0 +1,5 @@
+{
+  "apify-actor-start": {"FREE": 0.005},
+  "transcript": {"FREE": 0.004, "BRONZE": 0.0036, "SILVER": 0.0032, "GOLD": 0.0028},
+  "whisper-transcript": {"FREE": 0.015, "BRONZE": 0.0135, "SILVER": 0.012, "GOLD": 0.0105}
+}

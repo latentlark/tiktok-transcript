@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "tiktok-transcript",
+  "title": "TikTok Transcript Scraper",
+  "description": "Get TikTok video transcripts (text, timed segments, SRT) in the original spoken language, from video links or creator handles, plus views, likes and author data. Optional Whisper fallback.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "../Dockerfile",
+  "input": "./input_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "readme": "../README.md",
+  "output": "./output_schema.json"
+}

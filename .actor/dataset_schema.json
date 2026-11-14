@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Transcripts",
+      "transformation": {"fields": ["url", "status", "language", "transcriptSource", "transcript", "durationSecs", "author", "createTime", "stats", "note"]},
+      "display": {"component": "table", "properties": {
+        "url": {"label": "Video", "format": "link"}, "status": {"label": "Status"}, "language": {"label": "Language"},
+        "transcriptSource": {"label": "Source"}, "transcript": {"label": "Transcript"}, "durationSecs": {"label": "Duration (s)", "format": "number"},
+        "author": {"label": "Author", "format": "object"}, "createTime": {"label": "Posted", "format": "date"},
+        "stats": {"label": "Stats", "format": "object"}, "note": {"label": "Note"}}}
+    }
+  }
+}
